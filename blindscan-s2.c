@@ -421,42 +421,45 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	int dtv_frequency_prop = 0;
 	int dtv_symbol_rate_prop = 0;
 	int dtv_inner_fec_prop = 0;
-//	fe_status_t status;
-//	ioctl(fefd, FE_READ_STATUS, &status);
+	//fe_status_t status;
+	//ioctl(fefd, FE_READ_STATUS, &status);
 	ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
 	ioctl(fefd, FE_READ_SNR, &snr);
 	snr_percent = (snr * 100) / 0xffff;
 	
 	struct dtv_property p[] = {
-		{ .cmd = DTV_DELIVERY_SYSTEM},  // 0 DVB-S, 9 DVB-S2
-		{ .cmd = DTV_FREQUENCY },
-		{ .cmd = DTV_VOLTAGE },         // 0 - 13V H, 1 - 18V V, 2 - Voltage OFF 
-		{ .cmd = DTV_SYMBOL_RATE },
-		{ .cmd = DTV_MODULATION },      // 5 - QPSK, 6 - 8PSK
-		{ .cmd = DTV_INNER_FEC },
-		{ .cmd = DTV_INVERSION },
-		{ .cmd = DTV_ROLLOFF },
-		{ .cmd = DTV_PILOT }            // 0 - ON, 1 - OFF
-//		{ .cmd = DTV_TONE },
-//		{ .cmd = DTV_BANDWIDTH_HZ },    // Not used for DVB-S
+		{ .cmd = DTV_DELIVERY_SYSTEM }, //[0]  0 DVB-S, 9 DVB-S2
+		{ .cmd = DTV_FREQUENCY },	//[1]
+		{ .cmd = DTV_VOLTAGE },		//[2]  0 - 13V V, 1 - 18V H, 2 - Voltage OFF
+		{ .cmd = DTV_SYMBOL_RATE },	//[3]
+		{ .cmd = DTV_TONE },		//[4]
+		{ .cmd = DTV_MODULATION },	//[5]  5 - QPSK, 6 - 8PSK
+		{ .cmd = DTV_INNER_FEC },	//[6]
+		{ .cmd = DTV_INVERSION },	//[7]
+		{ .cmd = DTV_ROLLOFF },		//[8]
+		{ .cmd = DTV_BANDWIDTH_HZ },	//[9]  Not used for DVB-S
+		{ .cmd = DTV_PILOT },		//[10] 0 - ON, 1 - OFF
+		{ .cmd = DTV_DVBS2_MIS_ID }	//[11]
 	};
+
 	struct dtv_properties cmdseq = {
-		.num = 9,
+		.num = 12,
 		.props = p
-	};
+		};
 	ioctl(fefd, FE_GET_PROPERTY, &cmdseq);
 
 	int dtv_delivery_system_prop = cmdseq.props[0].u.data; 
 	dtv_frequency_prop = cmdseq.props[1].u.data; 
 	int dtv_voltage_prop = cmdseq.props[2].u.data; 
-	dtv_symbol_rate_prop = cmdseq.props[3].u.data; 
-	int dtv_modulation_prop = cmdseq.props[4].u.data; 
-	dtv_inner_fec_prop = cmdseq.props[5].u.data; 
-	int dtv_inversion_prop = cmdseq.props[6].u.data; 
-	int dtv_rolloff_prop = cmdseq.props[7].u.data; 
-	int dtv_pilot_prop = cmdseq.props[8].u.data; 
-	int dtv_tone_prop = cmdseq.props[9].u.data; 
-//	int dtv_bandwidth_hz_prop = cmdseq.props[10].u.data; 
+	dtv_symbol_rate_prop = cmdseq.props[3].u.data;
+//	int dtv_tone_prop = cmdseq.props[4].u.data;
+	int dtv_modulation_prop = cmdseq.props[5].u.data;
+	dtv_inner_fec_prop = cmdseq.props[6].u.data;
+	int dtv_inversion_prop = cmdseq.props[7].u.data;
+	int dtv_rolloff_prop = cmdseq.props[8].u.data;
+//	int dtv_bandwidth_hz_prop = cmdseq.props[9].u.data;
+	int dtv_pilot_prop = cmdseq.props[10].u.data;
+
 	int currentfreq;
 	int currentpol;
 	int currentsr;
@@ -475,13 +478,6 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	extern int lastinv;
 	extern int lastrol;
 	extern int lastpil;
-
-	struct dvb_frontend_parameters qp;
-	ioctl(fefd, FE_GET_FRONTEND, &qp);
-	dtv_frequency_prop = qp.frequency;
-	dtv_symbol_rate_prop = qp.u.qpsk.symbol_rate;
-//	dtv_inner_fec_prop = qp.u.qpsk.fec_inner;
-
 	currentfreq = dtv_frequency_prop / FREQ_MULT;
 	currentpol = dtv_voltage_prop;
 	currentsr = dtv_symbol_rate_prop / FREQ_MULT;
@@ -493,7 +489,10 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	currentpil = dtv_pilot_prop;
 
 
-	//if (verbose || (snr > 0 && dtv_frequency_prop > 0)) {
+
+	struct dvb_frontend_parameters qp;
+	ioctl(fefd, FE_GET_FRONTEND, &qp);
+	dtv_symbol_rate_prop = qp.u.qpsk.symbol_rate;
 	if (verbose || (snr > 0 && (currentpol != lastpol || currentfreq != lastfreq
 		|| currentsr != lastsr || currentsys != lastsys || currentfec != lastfec
 		|| currentmod != lastmod || currentinv != lastinv || currentrol != lastrol
@@ -536,6 +535,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		switch (dtv_modulation_prop) {
 			case 0: printf("QPSK "); break;
 			case 9: printf("8PSK "); break;
+			case 10: printf("16APSK "); break;
+			case 11: printf("32APSK "); break;
 			default: printf("MOD(%d) ", dtv_modulation_prop); break;
 		}
 
