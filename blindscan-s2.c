@@ -447,15 +447,15 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	ioctl(fefd, FE_GET_PROPERTY, &cmdseq);
 
 	int dtv_delivery_system_prop = cmdseq.props[0].u.data; 
-//	dtv_frequency_prop = cmdseq.props[1].u.data; 
+	dtv_frequency_prop = cmdseq.props[1].u.data; 
 	int dtv_voltage_prop = cmdseq.props[2].u.data; 
-//	dtv_symbol_rate_prop = cmdseq.props[3].u.data; 
+	dtv_symbol_rate_prop = cmdseq.props[3].u.data; 
 	int dtv_modulation_prop = cmdseq.props[4].u.data; 
 	dtv_inner_fec_prop = cmdseq.props[5].u.data; 
 	int dtv_inversion_prop = cmdseq.props[6].u.data; 
 	int dtv_rolloff_prop = cmdseq.props[7].u.data; 
 	int dtv_pilot_prop = cmdseq.props[8].u.data; 
-//	int dtv_tone_prop = cmdseq.props[9].u.data; 
+	int dtv_tone_prop = cmdseq.props[9].u.data; 
 //	int dtv_bandwidth_hz_prop = cmdseq.props[10].u.data; 
 	int currentfreq;
 	int currentpol;

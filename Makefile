@@ -1,5 +1,5 @@
-CC=gcc -Wall
-
+CC=gcc 
+CFLG=-O -g -W
 SRC=diseqc.c blindscan-s2.c
 HED=diseqc.h blindscan-s2.h
 OBJ=diseqc.o blindscan-s2.o
@@ -27,5 +27,5 @@ clean:
 	rm -f $(OBJ) $(TARGET) *~ ._*
 
 %.o: %.c
-	$(CC) $(INCLUDE) -c $< -o $@
+	$(CC) $(CFLG) $(INCLUDE) -c $< -o $@
 
