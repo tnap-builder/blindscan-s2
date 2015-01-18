@@ -61,9 +61,9 @@ useful for debugging
 *
 * How to run tests - see help
 * Deployment instructions - 
-git clone https://bitbucket.org/majortom/blindscan-s2
-cd blindscan-s2
-make
+* git clone https://majortom@bitbucket.org/majortom/blindscan-s2.git
+* cd blindscan-s2
+* make
 
 or open the project in QtCreator from the blindscan directory,
 so ya can use QtCreator's debug functions. 
