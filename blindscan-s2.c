@@ -524,7 +524,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	
 		printf("%-5d ", currentsr);
 		printf("SIG %3u%% ", (signal * 100) / 0xffff);
-		printf("SNR %3u%% ", (snr * 100) / 0xffff);
+		printf("SNR %3u%% ", snr_percent);
 
 		switch (dtv_delivery_system_prop) {
 			case 4:  printf("DSS    ");  break;
