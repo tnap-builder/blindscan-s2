@@ -19,6 +19,7 @@
 
 #include <stdio.h>
 #include <fcntl.h>
+#include <errno.h>
 #include <math.h>
 #include <stdint.h>
 #include <stdlib.h>

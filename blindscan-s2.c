@@ -417,15 +417,57 @@ void tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, 
 
 void getinfo(int fefd, int lof, unsigned int verbose) {
 
-	uint16_t snr, snr_percent, signal;
+	float snr, signal;
+	unsigned int lvl_scale, snr_scale;
 	int dtv_frequency_prop = 0;
 	int dtv_symbol_rate_prop = 0;
 	int dtv_inner_fec_prop = 0;
-	//fe_status_t status;
-	//ioctl(fefd, FE_READ_STATUS, &status);
-	ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
-	ioctl(fefd, FE_READ_SNR, &snr);
-	snr_percent = (snr * 100) / 0xffff;
+	fe_status_t status;
+	if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
+		perror("FE_READ_STATUS failed");
+	}
+
+	struct dtv_property sp[3];
+	sp[0].cmd = DTV_STAT_SIGNAL_STRENGTH;
+	sp[1].cmd = DTV_STAT_CNR;
+	sp[2].cmd = DTV_STAT_POST_ERROR_BIT_COUNT;
+
+	struct dtv_properties sp_status;
+	sp_status.num = 3;
+	sp_status.props = sp;
+
+	if (ioctl(fefd, FE_GET_PROPERTY, &sp_status) == -1) {
+		perror("FE_GET_PROPERTY failed");
+		return;
+	}
+	lvl_scale = sp_status.props[0].u.st.stat[0].scale;
+	if (lvl_scale == FE_SCALE_DECIBEL) {
+		signal = sp_status.props[0].u.st.stat[0].svalue * 0.0001;
+	} else {
+		int signal2;
+		if (ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal2) == -1) {
+			signal = 0;
+		} else {
+			signal = (float)signal2 * 100 / 0xffff;
+			if (signal < 0) {
+				signal = 0;
+			}
+		}
+	}
+	snr_scale = sp_status.props[1].u.st.stat[0].scale;
+	if (snr_scale == FE_SCALE_DECIBEL) {
+		snr = sp_status.props[1].u.st.stat[0].svalue * .0001;
+	} else {
+		unsigned int snr2 = 0;
+		if (ioctl(fefd, FE_READ_SNR, &snr2) == -1) {
+			snr2 = 0;
+		}
+		snr = (float)snr2/10;
+	}
+	ioctl(fefd, FE_READ_STATUS, &status);
+	//ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
+	//ioctl(fefd, FE_READ_SNR, &snr);
+	//snr_percent = (snr * 100) / 0xffff;
 	
 	struct dtv_property p[] = {
 		{ .cmd = DTV_DELIVERY_SYSTEM }, //[0]  0 DVB-S, 9 DVB-S2
@@ -522,8 +564,10 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		}
 	
 		printf("%-5d ", currentsr);
-		printf("SIG %3u%% ", (signal * 100) / 0xffff);
-		printf("SNR %3u%% ", snr_percent);
+		printf("SIG %2.1f dBm ", signal);
+		printf("SNR %2.1f dB ", snr);
+		//printf("SIG %3u%% ", (signal * 100) / 0xffff);
+		//printf("SNR %3u%% ", snr_percent);
 
 		switch (dtv_delivery_system_prop) {
 			case 4:  printf("DSS    ");  break;
