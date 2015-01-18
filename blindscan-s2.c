@@ -249,6 +249,18 @@ int open_frontend (unsigned int adapter, unsigned int frontend) {
 	char fedev[128];
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
+
+        struct dvb_frontend_info info;
+        if ((ioctl(fefd, FE_GET_INFO, &info)) == -1) {
+                perror("FE_GET_INFO failed\n");
+                return -1;
+        }
+        printf("frontend: (%s) \nfmin %d MHz \nfmax %d MHz \nmin_sr %d Ksps\nmax_sr %d Ksps\n\n", info.name,
+        info.type == 0 ? info.frequency_min / 1000: info.frequency_min / 1000000,
+        info.type == 0 ? info.frequency_max / 1000: info.frequency_max / 1000000,
+        info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /1000000,
+        info.type == 0 ? info.symbol_rate_max / 1000: info.symbol_rate_max /1000000);
+
 	return fefd;
 }
 
