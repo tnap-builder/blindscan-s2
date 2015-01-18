@@ -1,7 +1,11 @@
 # README #
 A C program to blindscan digital satellite signals. Taking advantage of the blindscan algorithm in the Linux driver for the Prof DVB-S2 cards, it will step through a range of transponders, find the symbol rate,and calculate for an LNB if you give it one.
 
-* Blindscan tool for the Linux DVB S2 API
+*Blindscan tool for the Linux DVB S2 API
+
+
+```
+#!c
 
 usage: blindscan-s2
 -b        : run blind scan
@@ -36,6 +40,8 @@ Default scans L-band range in steps of 20 on H and V polarity
 blindscan-s2 -b
 Scan 11700-11900 vertical in steps of 10, and calculate for lof
 blindscan-s2 -b -s 11700 -e 11900 -V -t 10 -l 10750
+
+```
 
 
 ### What is this repository for? ###
