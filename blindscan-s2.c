@@ -456,7 +456,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	if (lvl_scale == FE_SCALE_DECIBEL) {
 		signal = sp_status.props[0].u.st.stat[0].svalue * 0.0001;
 	} else {
-		int signal2;
+		uint16_t signal2 = 0;
 		if (ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal2) == -1) {
 			signal = 0;
 		} else {
@@ -470,16 +470,13 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	if (snr_scale == FE_SCALE_DECIBEL) {
 		snr = sp_status.props[1].u.st.stat[0].svalue * .0001;
 	} else {
-		unsigned int snr2 = 0;
+		uint16_t snr2 = 0;
 		if (ioctl(fefd, FE_READ_SNR, &snr2) == -1) {
 			snr2 = 0;
 		}
 		snr = (float)snr2/10;
 	}
 	ioctl(fefd, FE_READ_STATUS, &status);
-	//ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
-	//ioctl(fefd, FE_READ_SNR, &snr);
-	//snr_percent = (snr * 100) / 0xffff;
 	
 	struct dtv_property p[] = {
 		{ .cmd = DTV_DELIVERY_SYSTEM }, //[0]  0 DVB-S, 9 DVB-S2
@@ -576,10 +573,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		}
 	
 		printf("%-5d ", currentsr);
-		printf("SIG %2.1f dBm ", signal);
+		printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
 		printf("SNR %2.1f dB ", snr);
-		//printf("SIG %3u%% ", (signal * 100) / 0xffff);
-		//printf("SNR %3u%% ", snr_percent);
 
 		switch (dtv_delivery_system_prop) {
 			case 4:  printf("DSS    ");  break;
