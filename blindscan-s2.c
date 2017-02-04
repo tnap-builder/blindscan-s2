@@ -454,7 +454,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	}
 	lvl_scale = sp_status.props[0].u.st.stat[0].scale;
 	if (lvl_scale == FE_SCALE_DECIBEL) {
-		signal = sp_status.props[0].u.st.stat[0].svalue * 0.0001;
+		signal = sp_status.props[0].u.st.stat[0].svalue * 0.001;
 	} else {
 		uint16_t signal2 = 0;
 		if (ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal2) == -1) {
@@ -468,7 +468,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	}
 	snr_scale = sp_status.props[1].u.st.stat[0].scale;
 	if (snr_scale == FE_SCALE_DECIBEL) {
-		snr = sp_status.props[1].u.st.stat[0].svalue * .0001;
+		snr = sp_status.props[1].u.st.stat[0].svalue * .001;
 	} else {
 		uint16_t snr2 = 0;
 		if (ioctl(fefd, FE_READ_SNR, &snr2) == -1) {
