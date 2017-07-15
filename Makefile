@@ -1,4 +1,4 @@
-CC=gcc 
+CC?=gcc 
 CFLG=-O -g -W
 SRC=diseqc.c blindscan-s2.c
 HED=diseqc.h blindscan-s2.h
