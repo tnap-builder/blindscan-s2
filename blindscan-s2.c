@@ -430,11 +430,16 @@ void tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, 
 
 void getinfo(int fefd, int lof, unsigned int verbose) {
 
-	float snr, signal;
+#if DVB_API_VERSION > 5
+ 	float snr, signal;
+#else
+	uint16_t snr, snr_percent, signal;
+#endif
 	unsigned int lvl_scale, snr_scale;
 	int dtv_frequency_prop = 0;
 	int dtv_symbol_rate_prop = 0;
 	int dtv_inner_fec_prop = 0;
+#if DVB_API_VERSION > 5
 	fe_status_t status;
 	if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 		if (verbose) perror("FE_READ_STATUS failed");
@@ -478,7 +483,11 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		snr = (float)snr2/10;
 	}
 	ioctl(fefd, FE_READ_STATUS, &status);
-	
+#else
+	ioctl(fefd, FE_READ_SIGNAL_STRENGTH, &signal);
+	ioctl(fefd, FE_READ_SNR, &snr);
+	snr_percent = (snr * 100) / 0xffff;
+#endif
 	struct dtv_property p[] = {
 		{ .cmd = DTV_DELIVERY_SYSTEM }, //[0]  0 DVB-S, 9 DVB-S2
 		{ .cmd = DTV_FREQUENCY },	//[1]
