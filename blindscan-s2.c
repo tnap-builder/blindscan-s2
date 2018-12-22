@@ -490,7 +490,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		{ .cmd = DTV_ROLLOFF },		//[8]
 		{ .cmd = DTV_BANDWIDTH_HZ },	//[9]  Not used for DVB-S
 		{ .cmd = DTV_PILOT },		//[10] 0 - ON, 1 - OFF
-		{ .cmd = DTV_DVBS2_MIS_ID }	//[11]
+		{ .cmd = DTV_STREAM_ID }	//[11]
 	};
 
 	struct dtv_properties cmdseq = {
