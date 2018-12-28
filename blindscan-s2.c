@@ -294,6 +294,23 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	unsigned int monitor_retune, int tone) {
 	int r;
 	int f;
+	int userstep = step;
+	fe_status_t status;
+
+	int dtv_symbol_rate_prop = 0;
+	struct dtv_property p[] = {
+                { .cmd = DTV_SYMBOL_RATE }
+        };
+        struct dtv_properties qp = {
+                .num = 1,
+                .props = p
+        };
+
+        if (ioctl(fefd, FE_GET_PROPERTY, &qp) == -1) {
+                perror("blindscan () FE_GET_PROPERTY failed_1");
+                return;
+	}
+
 	if (startfreq > endfreq) {
 		for (f = startfreq; f >= endfreq; f -= step) {
 			for (r = retune; r > 0; r -= 1) {
@@ -306,6 +323,20 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				getinfo(fefd, lof, verbose);
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
+				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
+					perror("FE_READ_STATUS failed");
+				}
+                                if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
+					ioctl(fefd, FE_GET_PROPERTY, &qp);
+					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
+					if(dtv_symbol_rate_prop < 1000) {
+						dtv_symbol_rate_prop = 1000;
+					}
+					step = (dtv_symbol_rate_prop );
+				} else {
+					step = userstep;
+				}
+				printf("Step %d \n", step);
 				if (interactive) {
 					printf("Interactive: press i [enter] for info, r to retune, q to quit\n");
 					verbose = 1;
@@ -350,6 +381,20 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				getinfo(fefd, lof, verbose);
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
+                                if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
+                                        perror("FE_READ_STATUS failed");
+                                }
+                                if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
+                                        ioctl(fefd, FE_GET_PROPERTY, &qp);
+                                        dtv_symbol_rate_prop = qp.props[0].u.data ;
+                                        if(dtv_symbol_rate_prop < 1000) {
+                                                dtv_symbol_rate_prop = 1000;
+                                        }
+                                        step = (dtv_symbol_rate_prop / FREQ_MULT);
+                                } else {
+					step = userstep;
+				}
+                                printf("Step %d \n", step);
 				if (interactive) {
 					printf("Interactive: press i [enter] for info, r to retune, q to quit\n");
 					verbose = 1;
