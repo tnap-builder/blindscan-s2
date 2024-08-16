@@ -330,8 +330,8 @@ void blindscan (int startfreq, int endfreq, int symrate,
                                 if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
-					if(dtv_symbol_rate_prop < 1000) {
-						dtv_symbol_rate_prop = 1000;
+					if(dtv_symbol_rate_prop < 100) {
+						dtv_symbol_rate_prop = 100;
 					}
 					step = (dtv_symbol_rate_prop );
 				} else {
@@ -388,8 +388,8 @@ void blindscan (int startfreq, int endfreq, int symrate,
                                 if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
                                         ioctl(fefd, FE_GET_PROPERTY, &qp);
                                         dtv_symbol_rate_prop = qp.props[0].u.data ;
-                                        if(dtv_symbol_rate_prop < 1000) {
-                                                dtv_symbol_rate_prop = 1000;
+                                        if(dtv_symbol_rate_prop < 100) {
+                                                dtv_symbol_rate_prop = 100;
                                         }
                                         step = (dtv_symbol_rate_prop / FREQ_MULT);
                                 } else {
