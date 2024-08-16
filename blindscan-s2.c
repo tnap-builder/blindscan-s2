@@ -259,7 +259,7 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
         if (verbose) printf("frontend: (%s) \nfmin %d MHz \nfmax %d MHz \nmin_sr %d Ksps\nmax_sr %d Ksps\n\n", info.name,
         info.type == 0 ? info.frequency_min / 1000: info.frequency_min / 1000000,
         info.type == 0 ? info.frequency_max / 1000: info.frequency_max / 1000000,
-        info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /1000000,
+        info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /100000,
         info.type == 0 ? info.symbol_rate_max / 1000: info.symbol_rate_max /1000000);
 
 	return fefd;
