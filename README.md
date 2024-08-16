@@ -1,5 +1,4 @@
-blindscan-s2 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
-============
+# README #
 A C program to blindscan digital satellite signals. Taking advantage of the blindscan algorithm in the Linux driver for the Prof DVB-S2 cards, it will step through a range of transponders, find the symbol rate,and calculate for an LNB if you give it one.
 
 *Blindscan tool for the Linux DVB S2 API
