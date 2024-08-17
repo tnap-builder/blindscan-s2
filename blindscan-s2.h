@@ -28,7 +28,7 @@
 #include <linux/dvb/frontend.h>
 #include "diseqc.h"
 
-#define SLEEP_TIME 20000
+#define SLEEP_TIME 10000
 #define HORIZONTAL SEC_VOLTAGE_18
 #define VERTICAL SEC_VOLTAGE_13
 #define NOPOLARITY SEC_VOLTAGE_OFF
@@ -37,7 +37,7 @@
 #define SCAN_N 0
 #define FEC 9
 #define TONE SEC_TONE_OFF
-#define CBAND_LOF 5150
+#define CBAND_LOF 5750
 #define INTERACTIVE 0
 #define MONITOR 0
 #define MONITOR_RETUNE 0
@@ -51,8 +51,8 @@
 #define STARTFREQ 950
 #define ENDFREQ 1450
 #define LBAND_MAX 2150
-#define SYMRATE 1000
-#define STEP 20
+#define SYMRATE 100
+#define STEP 2
 #define LOF 0
 #define COMMITTED 0
 #define UNCOMMITTED 0
