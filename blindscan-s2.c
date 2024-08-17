@@ -320,9 +320,9 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
 				usleep(100000 );
 				getinfo(fefd, lof, verbose);
-				usleep(100000 );
+				usleep(1000 );
 				getinfo(fefd, lof, verbose);
-				usleep(100000 );
+				usleep(1000 );
 				getinfo(fefd, lof, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
@@ -360,7 +360,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					verbose = 1;
 					while (1) {
 						getinfo(fefd, lof, verbose);
-						usleep(1000000);
+						usleep(10000);
 						if (monitor_retune) {
 							tune(fefd, f, symrate, polarity, fec, delsys, tone);
 							usleep(1000000);
