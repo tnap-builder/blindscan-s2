@@ -272,7 +272,7 @@ void convert_freq (int lof, int *startfreq,
 	lband_max_khz = LBAND_MAX * FREQ_MULT;
 	cband_lof_khz = CBAND_LOF * FREQ_MULT;
 	*step = *step * FREQ_MULT;
-	*symrate = *symrate * FREQ_MULT;
+	*symrate = 100000;
 	*startfreq = *startfreq * FREQ_MULT;
 	*endfreq = *endfreq * FREQ_MULT;
 	if (lof_khz > 0) {
