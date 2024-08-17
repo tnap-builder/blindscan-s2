@@ -318,11 +318,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				if (verbose)
 					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
-				usleep(100000 );
-				getinfo(fefd, lof, verbose);
-				usleep(1000 );
-				getinfo(fefd, lof, verbose);
-				usleep(1000 );
+				usleep(500000 );
 				getinfo(fefd, lof, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
@@ -376,11 +372,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				if (verbose)
 					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
-				usleep(100000 );
-				getinfo(fefd, lof, verbose);
-				usleep(100000 );
-				getinfo(fefd, lof, verbose);
-				usleep(100000 );
+				usleep(500000 );
 				getinfo(fefd, lof, verbose);
                                 if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
                                         perror("FE_READ_STATUS failed");
