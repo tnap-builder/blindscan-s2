@@ -342,7 +342,6 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				} else {
 					step = userstep;
 				}
-				printf("Step %d \n", step);
 				if (interactive) {
 					printf("Interactive: press i [enter] for info, r to retune, q to quit\n");
 					verbose = 1;
@@ -404,7 +403,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
                                 } else {
 					step = userstep;
 				}
-                                printf("Step %d \n", step);
+
 				if (interactive) {
 					printf("Interactive: press i [enter] for info, r to retune, q to quit\n");
 					verbose = 1;
