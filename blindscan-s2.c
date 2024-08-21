@@ -331,7 +331,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
 				}
-                                if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
+				if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
 					printf("Symbol rate = %d \n", dtv_symbol_rate_prop);					
