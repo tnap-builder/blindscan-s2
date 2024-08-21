@@ -383,8 +383,10 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				printf("Now-Tuning LBAND: %d \n", f / FREQ_MULT);
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
+				printf("usleep 500000-Start \n");
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
+				printf("usleep 500000-Finish \n");
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
 				usleep(500000);
@@ -397,7 +399,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
                                 if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
                                         ioctl(fefd, FE_GET_PROPERTY, &qp);
                                         dtv_symbol_rate_prop = qp.props[0].u.data ;
-                                        printf("Symbol rate = %d \n", dtv_symbol_rate_prop);
+                                        //printf("Symbol rate = %d \n", dtv_symbol_rate_prop);
                                         if(dtv_symbol_rate_prop < 100) {
                                                 dtv_symbol_rate_prop = 100;
                                         }
@@ -641,8 +643,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 
 		printf("%-8d ", currentsr * 1000);
 
-		//printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
-		//printf("SNR %2.1f dB ", snr);
+		printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
+		printf("SNR %2.1f dB ", snr);
 
 		switch (dtv_delivery_system_prop) {
 			case 4:  printf("DSS    ");  break;
