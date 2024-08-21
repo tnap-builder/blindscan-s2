@@ -383,15 +383,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
 				printf("Now-Tuning LBAND: %d \n", f / FREQ_MULT);
-				usleep(500000);
-				getinfo(fefd, lof, verbose);
-				usleep(400000);
-				getinfo(fefd, lof, verbose);
-				usleep(300000);
-				getinfo(fefd, lof, verbose);
-				usleep(200000);
-				getinfo(fefd, lof, verbose);
-				usleep(100000);
+				usleep(900000);
 				getinfo(fefd, lof, verbose);
 				printf("usleep(s)-End \n");
                                 if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
@@ -407,6 +399,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
                                         step = (dtv_symbol_rate_prop / FREQ_MULT);
                                 } else {
 					step = userstep;
+					printf("step = %d \n", step);
 				}
 
 				if (interactive) {
