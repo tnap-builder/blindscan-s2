@@ -638,8 +638,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 
 		printf("%-8d ", currentsr * 1000);
 
-		printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
-		printf("SNR %2.1f dB ", snr);
+		//printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
+		//printf("SNR %2.1f dB ", snr);
 
 		switch (dtv_delivery_system_prop) {
 			case 4:  printf("DSS    ");  break;
