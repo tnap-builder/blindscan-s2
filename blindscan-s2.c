@@ -385,16 +385,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				printf("Now-Tuning LBAND: %d \n", f / FREQ_MULT);
 				usleep(500000);
 				getinfo(fefd, lof, verbose);
-				printf("usleep 500000-Start \n");
-				usleep(500000);
-				getinfo(fefd, lof, verbose);
-				printf("usleep 500000-Finish \n");
-				usleep(500000);
-				getinfo(fefd, lof, verbose);
-				usleep(500000);
-				getinfo(fefd, lof, verbose);
-				usleep(500000);
-				getinfo(fefd, lof, verbose);
+				printf("usleep 500000-End \n");
                                 if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
                                         perror("FE_READ_STATUS failed");
                                 }
@@ -431,9 +422,11 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				else if (monitor) {
 					verbose = 1;
 					while (1) {
+						printf(" \n We Have Monitor --usleep = 1000000 ...");
 						getinfo(fefd, lof, verbose);
 						usleep(1000000);
 						if (monitor_retune) {
+							printf(" \n We Have Monitor Re-Tuning --usleep = 1000000...");
 							tune(fefd, f, symrate, polarity, fec, delsys, tone);
 							usleep(1000000);
 						}
