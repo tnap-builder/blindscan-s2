@@ -334,7 +334,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
-					printf("Symbol rate = %d \n", dtv_symbol_rate_prop);					
+					//printf("Symbol rate = %d \n", dtv_symbol_rate_prop);					
 					if(dtv_symbol_rate_prop < 100) {
 						dtv_symbol_rate_prop = 100;
 					}
@@ -361,11 +361,13 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					}
 				}
 				else if (monitor) {
+					printf(" \n We Have Monitor...");
 					verbose = 1;
 					while (1) {
 						getinfo(fefd, lof, verbose);
 						usleep(1000000);
 						if (monitor_retune) {
+							printf(" \n We Have Monitor Re-Tuning...");
 							tune(fefd, f, symrate, polarity, fec, delsys, tone);
 							usleep(1000000);
 						}
