@@ -383,7 +383,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
 				//printf("Now-Tuning LBAND: %d \n", f / FREQ_MULT);
-				usleep(900000);
+				usleep(250000);
 				getinfo(fefd, lof, verbose);
 				//printf("usleep(s)-End \n");
                                 if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
