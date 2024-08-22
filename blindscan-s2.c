@@ -383,29 +383,22 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
 				//printf("Now-Tuning LBAND: %d \n", f / FREQ_MULT);
-				usleep(100);
+				usleep(1500000);
 				getinfo(fefd, lof, verbose);
-				usleep(100);
-				getinfo(fefd, lof, verbose);
-				usleep(100);
-				getinfo(fefd, lof, verbose);
-				usleep(100);
-				getinfo(fefd, lof, verbose);
+				usleep(1500000);
 				//printf("usleep(s)-End \n");
-                                if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
-                                        perror("FE_READ_STATUS failed");
-                                }
+				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
+					perror("FE_READ_STATUS failed");
+				}
                                 if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
-                                        ioctl(fefd, FE_GET_PROPERTY, &qp);
-                                        dtv_symbol_rate_prop = qp.props[0].u.data ;
-                                        //printf("Symbol rate = %d \n", dtv_symbol_rate_prop);
-                                        if(dtv_symbol_rate_prop < 100) {
-                                                dtv_symbol_rate_prop = 100;
-                                        }
-                                        step = (dtv_symbol_rate_prop / FREQ_MULT);
-                                } else {
+					ioctl(fefd, FE_GET_PROPERTY, &qp);
+					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
+					if(dtv_symbol_rate_prop < 100) {
+						dtv_symbol_rate_prop = 100;
+					}
+					step = (dtv_symbol_rate_prop );
+				} else {
 					step = userstep;
-					//printf("step = %d \n", step);
 				}
 
 				if (interactive) {
