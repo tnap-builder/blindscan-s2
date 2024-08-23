@@ -17,7 +17,7 @@
  * Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
  */
 
-
+#include <stdio.h>
 #include "blindscan-s2.h"
 
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose);
@@ -399,7 +399,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				getinfo(fefd, lof, verbose);
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
-				PRINT("\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
+				//printf("\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
 				}
