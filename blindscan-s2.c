@@ -206,10 +206,12 @@ int main(int argc, char *argv[])
 	}
 
 	if (run_blindscan) {
+		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		time_t mytime = time(NULL);
 		char * time_str = ctime(&mytime);
 		time_str[strlen(time_str)-1] = '\0';
-		printf("Current Time : %s\n", time_str);
+		fprintf(fptr,"Current Time at Start-of-Scan : %s\n", time_str);
+		fclose(fptr;
 		convert_freq (lof, &startfreq, &endfreq, &symrate, &step);
 		fefd = open_frontend (adapter, frontend, verbose);
 
