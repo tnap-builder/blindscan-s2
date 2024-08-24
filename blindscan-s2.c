@@ -674,19 +674,19 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		}
 
 		switch (dtv_inversion_prop) {
-			case 0:  printf("INVERSION_OFF  ");  break;
-			case 1:  printf("INVERSION_ON   ");   break;
-			case 2:  printf("INVERSION_AUTO "); break;
+			case 0:  printf("INVERSION_OFF  "), fprintf(fptr,"INVERSION_OFF  "); break;
+			case 1:  printf("INVERSION_ON   "), fprintf(fptr,"INVERSION_ON   "); break;
+			case 2:  printf("INVERSION_AUTO "), fprintf(fptr,"INVERSION_AUTO "); break;
 			default:
-				if (verbose) printf("INVERSION (%d) ", dtv_inversion_prop);
-				else printf("INVERSION_AUTO ");
+				if (verbose) printf("INVERSION (%d) ", dtv_inversion_prop), fprintf(fptr,"INVERSION (%d) ", dtv_inversion_prop);
+				else printf("INVERSION_AUTO "), fprintf(fptr,"INVERSION_AUTO ");
 				break;
 		}
 
 		switch (dtv_pilot_prop) {
-			case 0:  printf("PILOT_ON   ");   break;
-			case 1:  printf("PILOT_OFF  ");  break;
-			case 2:  printf("PILOT_AUTO "); break;
+			case 0:  printf("PILOT_ON   "), fprintf(fptr,"PILOT_ON   "); break;
+			case 1:  printf("PILOT_OFF  "), fprintf(fptr,"PILOT_OFF  "); break;
+			case 2:  printf("PILOT_AUTO "), fprintf(fptr,"PILOT_AUTO "); break;
 			default:
 				if (verbose) printf("PILOT (%d) ", dtv_pilot_prop);
 				else printf("PILOT_AUTO ");
