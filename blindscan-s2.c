@@ -688,27 +688,27 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			case 1:  printf("PILOT_OFF  "), fprintf(fptr,"PILOT_OFF  "); break;
 			case 2:  printf("PILOT_AUTO "), fprintf(fptr,"PILOT_AUTO "); break;
 			default:
-				if (verbose) printf("PILOT (%d) ", dtv_pilot_prop);
-				else printf("PILOT_AUTO ");
+				if (verbose) printf("PILOT (%d) ", dtv_pilot_prop), fprintf(fptr,"PILOT (%d) ", dtv_pilot_prop);
+				else printf("PILOT_AUTO "), fprintf(fptr,"PILOT_AUTO ");
 				break;
 		}
 
 		switch (dtv_inner_fec_prop) {
-			case 0: printf("FEC_NONE ");  break;
-			case 1: printf("FEC_1_2  ");   break;
-			case 2: printf("FEC_2_3  ");   break;
-			case 3: printf("FEC_3_4  ");   break;
-			case 4: printf("FEC_4_5  ");   break;
-			case 5: printf("FEC_5_6  ");   break;
-			case 6: printf("FEC_6_7  ");   break;
-			case 7: printf("FEC_7_8  ");   break;
-			case 8: printf("FEC_8_9  ");   break;
-			case 9: printf("FEC_AUTO ");  break;
-			case 10: printf("FEC_3_5  ");  break;
-			case 11: printf("FEC_9_10 "); break;
+			case 0: printf("FEC_NONE "), fprintf(fptr,"FEC_NONE ");  break;
+			case 1: printf("FEC_1_2  "), fprintf(fptr,"FEC_1_2  ");   break;
+			case 2: printf("FEC_2_3  "), fprintf(fptr,"FEC_2_3  ");   break;
+			case 3: printf("FEC_3_4  "), fprintf(fptr,"FEC_3_4  ");   break;
+			case 4: printf("FEC_4_5  "), fprintf(fptr,"FEC_4_5  ");   break;
+			case 5: printf("FEC_5_6  "), fprintf(fptr,"FEC_5_6  ");   break;
+			case 6: printf("FEC_6_7  "), fprintf(fptr,"FEC_6_7  ");   break;
+			case 7: printf("FEC_7_8  "), fprintf(fptr,"FEC_7_8  ");   break;
+			case 8: printf("FEC_8_9  "), fprintf(fptr,"FEC_8_9  ");   break;
+			case 9: printf("FEC_AUTO "), fprintf(fptr,"FEC_AUTO ");  break;
+			case 10: printf("FEC_3_5  "), fprintf(fptr,"FEC_3_5  ");  break;
+			case 11: printf("FEC_9_10 "), fprintf(fptr,"FEC_9_10 "); break;
 			default:
-				if (verbose) printf("FEC (%d)  ", dtv_inner_fec_prop);
-				else printf("FEC_AUTO ");
+				if (verbose) printf("FEC (%d)  ", dtv_inner_fec_prop), fprintf(fptr,"FEC (%d)  ", dtv_inner_fec_prop);
+				else printf("FEC_AUTO "), fprintf(fptr,"FEC_AUTO ");
 				break;
 		}
 
