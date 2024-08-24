@@ -300,7 +300,7 @@ void convert_freq (int lof, int *startfreq,
 }
 
 void blindscan (int startfreq, int endfreq, int symrate,
-	int step, unsigned int scan_v, unsigned int scan_h, int lof,
+	int step(const char *string), unsigned int scan_v, unsigned int scan_h, int lof,
 	unsigned int interactive, int fec, unsigned int adapter,
 	unsigned int frontend, unsigned int verbose, int fefd, int delsys,
 	unsigned int monitor, unsigned int polarity, int retune,
