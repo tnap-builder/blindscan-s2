@@ -649,8 +649,10 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			case 0: printf("VERTICAL   "), fprintf(fptr,"VERTICAL   "); break;
 			case 1: printf("HORIZONTAL "), fprintf(fptr,"HORIZONTAL "); break;
 			case 2: printf("NONE       "), fprintf(fptr,"HORIZONTAL "); break;
+		fclose(fptr);
 		}
 
+		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		if (lof >= 1 && lof <= CBAND_LOF && dtv_frequency_prop != 0)
 			printf("%-8d ", (lof - currentfreq) * 1000), fprintf(fptr,"%-8d ", (lof - currentfreq) * 1000);
 		else if (dtv_frequency_prop != 0)
