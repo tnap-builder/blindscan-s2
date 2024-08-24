@@ -20,6 +20,9 @@
 #include <stdio.h>
 #include "blindscan-s2.h"
 
+FILE *fptr;
+fptr = fopen("/media/usb/test.txt", "a");
+
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose);
 
 void blindscan (int startfreq, int endfreq, int symrate,
