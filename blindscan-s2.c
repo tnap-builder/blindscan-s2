@@ -404,10 +404,10 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
 
-				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-				fprintf(fptr, "\n This is only a test");
-				fprintf(fptr, "\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
-				fclose(fptr);
+				//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				//fprintf(fptr, "\n This is only a test");
+				//fprintf(fptr, "\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
+				//fclose(fptr);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
 				}
@@ -644,6 +644,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 
 		printf("OK ");
 
+		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		switch (dtv_voltage_prop) {
 			case 0: printf("VERTICAL   ");
 			case 0: fprintf(fptr,"VERTICAL   "); break;
