@@ -404,9 +404,8 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
 
-				FILE *fptr;
-				fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-				fprintf(FILE *fptr, "\n This is only a test");
+				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				fprintf(fptr, "\n This is only a test");
 				//fprintf(fptr, "\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
