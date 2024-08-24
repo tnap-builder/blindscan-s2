@@ -754,7 +754,6 @@ char * time_str = ctime(&mytime);
 time_str[strlen(time_str)-1] = '\0';
 fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
 fclose(fptr);
-open(fefd);
 
 return (0);
 }
