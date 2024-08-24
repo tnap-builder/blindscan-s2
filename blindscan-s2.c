@@ -468,7 +468,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	}
 }
 
-void tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, int tone) {
+void int step, tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, int tone) {
 
         struct dtv_property p_clear[] = {
                 { .cmd = DTV_CLEAR },
