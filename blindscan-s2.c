@@ -251,6 +251,7 @@ int main(int argc, char *argv[])
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	int fefd;
 	char fedev[128];
+	//fptr = fopen("/media/usb/test.txt", "w");
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
@@ -403,9 +404,9 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
 
-				//FILE *fptr;
-				//fptr = fopen("/media/usb/test.txt", "a");
-				printf("\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
+				FILE *fptr;
+				fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				fprintf(fptr, "\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
 				}
