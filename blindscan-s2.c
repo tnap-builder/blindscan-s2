@@ -468,7 +468,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 			}
 		}
 		outer:;
-	if (step >= endfreq) {
+	if (f >= (endfreq - 2000)) {
 		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		time_t mytime = time(NULL);
 		char * time_str = ctime(&mytime);
