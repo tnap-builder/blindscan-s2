@@ -661,7 +661,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			printf("%-8d ", dtv_frequency_prop * 1000), fprintf(fptr,"%-8d ", dtv_frequency_prop * 1000);
 
 		printf("%-8d ", currentsr * 1000), fprintf(fptr,"%-8d ", currentsr * 1000);
-
+		fclose(fptr);
 		//printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
 		//printf("SNR %2.1f dB ", snr);
 
