@@ -649,10 +649,10 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			case 0: printf("VERTICAL   "), fprintf(fptr,"VERTICAL   "); break;
 			case 1: printf("HORIZONTAL "), fprintf(fptr,"HORIZONTAL "); break;
 			case 2: printf("NONE       "), fprintf(fptr,"HORIZONTAL "); break;
-		fclose(fptr);
+		//fclose(fptr);
 		}
 
-		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+		//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		if (lof >= 1 && lof <= CBAND_LOF && dtv_frequency_prop != 0)
 			printf("%-8d ", (lof - currentfreq) * 1000), fprintf(fptr,"%-8d ", (lof - currentfreq) * 1000);
 		else if (dtv_frequency_prop != 0)
@@ -661,7 +661,7 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			printf("%-8d ", dtv_frequency_prop * 1000), fprintf(fptr,"%-8d ", dtv_frequency_prop * 1000);
 
 		printf("%-8d ", currentsr * 1000), fprintf(fptr,"%-8d ", currentsr * 1000);
-		fclose(fptr);
+		//fclose(fptr);
 		//printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
 		//printf("SNR %2.1f dB ", snr);
 
@@ -726,13 +726,13 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		}
 
 		switch (dtv_rolloff_prop) {
-			case 0:  printf("ROLLOFF_35\n"), fprintf(fptr,"ROLLOFF_35\n");   break;
-			case 1:  printf("ROLLOFF_20\n"), fprintf(fptr,"ROLLOFF_20\n");   break;
-			case 2:  printf("ROLLOFF_25\n"), fprintf(fptr,"ROLLOFF_25\n");   break;
-			case 3:  printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n"); break;
+			case 0:  printf("ROLLOFF_35\n"), fprintf(fptr,"ROLLOFF_35\n"), fclose(fptr);   break;
+			case 1:  printf("ROLLOFF_20\n"), fprintf(fptr,"ROLLOFF_20\n"), fclose(fptr);   break;
+			case 2:  printf("ROLLOFF_25\n"), fprintf(fptr,"ROLLOFF_25\n"), fclose(fptr);  break;
+			case 3:  printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n"), fclose(fptr); break;
 			default:
-				if (verbose) printf("ROL (%d)\n", dtv_rolloff_prop), fprintf(fptr,"ROL (%d)\n", dtv_rolloff_prop);
-				else printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n");
+				if (verbose) printf("ROL (%d)\n", dtv_rolloff_prop), fprintf(fptr,"ROL (%d)\n", dtv_rolloff_prop), fclose(fptr);
+				else printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n"), fclose(fptr);
 				break;
 		fclose(fptr);
 		}
