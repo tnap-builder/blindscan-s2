@@ -646,8 +646,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 
 		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		switch (dtv_voltage_prop) {
-			case 0: printf("VERTICAL   ");
-			case 0: fprintf(fptr,"VERTICAL   "); break;
+			case 0: printf("VERTICAL   "), fprintf(fptr,"VERTICAL   "); break;
+			//case 0: fprintf(fptr,"VERTICAL   "); break;
 			case 1: printf("HORIZONTAL "); break;
 			case 2: printf("NONE       "); break;
 		}
