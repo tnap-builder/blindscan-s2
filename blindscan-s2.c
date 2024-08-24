@@ -752,7 +752,10 @@ FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 time_t mytime = time(NULL);
 char * time_str = ctime(&mytime);
 time_str[strlen(time_str)-1] = '\0';
-fprintf(fptr,"Current Time at End-of-Scan : %s\n", time_str);
+fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
 fclose(fptr);
+open(fefd);
+
+return (0);
 }
 
