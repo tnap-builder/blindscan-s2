@@ -403,13 +403,13 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
 
-				FILE *fptr;
-				fptr = fopen("/media/usb/test.txt", "a");
-				fprintf("\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
+				//FILE *fptr;
+				//fptr = fopen("/media/usb/test.txt", "a");
+				perror("\n tune = fefd %d, f %d, symrate %d, polarity %d, fec %d, delsys %d, tone %d, verbose %d", fefd, f, symrate, polarity, fec, delsys, tone, verbose);
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
 				}
-                                if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
+				if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
 					if(dtv_symbol_rate_prop < 100) {
