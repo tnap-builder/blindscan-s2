@@ -211,7 +211,7 @@ int main(int argc, char *argv[])
 		char * time_str = ctime(&mytime);
 		time_str[strlen(time_str)-1] = '\0';
 		fprintf(fptr,"Current Time at Start-of-Scan : %s\n", time_str);
-		fclose(fptr;
+		fclose(fptr);
 		convert_freq (lof, &startfreq, &endfreq, &symrate, &step);
 		fefd = open_frontend (adapter, frontend, verbose);
 
@@ -745,6 +745,12 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		fclose(fptr);
 		}
 
+	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+	time_t mytime = time(NULL);
+	char * time_str = ctime(&mytime);
+	time_str[strlen(time_str)-1] = '\0';
+	fprintf(fptr,"Current Time at End-of-Scan : %s\n", time_str);
+	fclose(fptr);
 	}
 
 }
