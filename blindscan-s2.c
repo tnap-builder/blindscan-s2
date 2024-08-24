@@ -668,8 +668,8 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 			case 5:  printf("DVB-S  "), fprintf(fptr,"DVB-S  "); break;
 			case 6:  printf("DVB-S2 "), fprintf(fptr,"DVB-S2 "); break;
 			default:
-				if (verbose) printf("SYS(%d) ", dtv_delivery_system_prop);
-				else printf("DVB-S  ");
+				if (verbose) printf("SYS(%d) ", dtv_delivery_system_prop), fprintf(fptr,"SYS(%d) ", dtv_delivery_system_prop);
+				else printf("DVB-S  "), fprintf(fptr,"DVB-S  ");
 				break;
 		}
 
