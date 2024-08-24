@@ -713,25 +713,26 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		}
 
 		switch (dtv_modulation_prop) {
-			case 0: printf("QPSK "); break;
-			case 9: printf("8PSK "); break;
-			case 10: printf("16APSK "); break;
-			case 11: printf("32APSK "); break;
+			case 0: printf("QPSK "), fprintf(fptr,"QPSK "); break;
+			case 9: printf("8PSK "), fprintf(fptr,"8PSK "); break;
+			case 10: printf("16APSK "), fprintf(fptr,"16APSK "); break;
+			case 11: printf("32APSK "), fprintf(fptr,"32APSK "); break;
 			default:
-				if (verbose) printf("MOD(%d) ", dtv_modulation_prop);
-				else printf("QPSK ");
+				if (verbose) printf("MOD(%d) ", dtv_modulation_prop), fprintf(fptr,"MOD(%d) ", dtv_modulation_prop);
+				else printf("QPSK "), fprintf(fptr,"QPSK ");
 				break;
 		}
 
 		switch (dtv_rolloff_prop) {
-			case 0:  printf("ROLLOFF_35\n");   break;
-			case 1:  printf("ROLLOFF_20\n");   break;
-			case 2:  printf("ROLLOFF_25\n");   break;
-			case 3:  printf("ROLLOFF_AUTO\n"); break;
+			case 0:  printf("ROLLOFF_35\n"), fprintf(fptr,"ROLLOFF_35\n");   break;
+			case 1:  printf("ROLLOFF_20\n"), fprintf(fptr,"ROLLOFF_20\n");   break;
+			case 2:  printf("ROLLOFF_25\n"), fprintf(fptr,"ROLLOFF_25\n");   break;
+			case 3:  printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n"); break;
 			default:
-				if (verbose) printf("ROL (%d)\n", dtv_rolloff_prop);
-				else printf("ROLLOFF_AUTO\n");
+				if (verbose) printf("ROL (%d)\n", dtv_rolloff_prop), fprintf(fptr,"ROL (%d)\n", dtv_rolloff_prop);
+				else printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n");
 				break;
+		fclose(fptr);
 		}
 
 	}
