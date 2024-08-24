@@ -465,10 +465,18 @@ void blindscan (int startfreq, int endfreq, int symrate,
 			}
 		}
 		outer:;
+		if (step >= endfreq) {
+			FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+			time_t mytime = time(NULL);
+			char * time_str = ctime(&mytime);
+			time_str[strlen(time_str)-1] = '\0';
+			fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
+			fclose(fptr);
+		}
 	}
 }
 
-void int step, tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, int tone) {
+void tune(int fefd, int tpfreq, int symrate, int polarity, int fec, int delsys, int tone) {
 
         struct dtv_property p_clear[] = {
                 { .cmd = DTV_CLEAR },
@@ -744,15 +752,6 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 				break;
 			fclose(fptr);
 
-		}
-
-		if (step >= endfreq) {
-			FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-			time_t mytime = time(NULL);
-			char * time_str = ctime(&mytime);
-			time_str[strlen(time_str)-1] = '\0';
-			fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
-			fclose(fptr);
 		}
 	}
 }
