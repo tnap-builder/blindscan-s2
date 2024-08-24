@@ -647,19 +647,18 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 		switch (dtv_voltage_prop) {
 			case 0: printf("VERTICAL   "), fprintf(fptr,"VERTICAL   "); break;
-			//case 0: fprintf(fptr,"VERTICAL   "); break;
-			case 1: printf("HORIZONTAL "); break;
-			case 2: printf("NONE       "); break;
+			case 1: printf("HORIZONTAL "), fprintf(fptr,"HORIZONTAL "); break;
+			case 2: printf("NONE       "), fprintf(fptr,"HORIZONTAL "); break;
 		}
 
 		if (lof >= 1 && lof <= CBAND_LOF && dtv_frequency_prop != 0)
-			printf("%-8d ", (lof - currentfreq) * 1000);
+			printf("%-8d ", (lof - currentfreq) * 1000), fprintf(fptr,"%-8d ", (lof - currentfreq) * 1000);
 		else if (dtv_frequency_prop != 0)
-			printf("%-8d ", (currentfreq + lof) * 1000);
+			printf("%-8d ", (currentfreq + lof) * 1000), fprintf(fptr,"%-8d ", (currentfreq + lof) * 1000);
 		else
-			printf("%-8d ", dtv_frequency_prop * 1000);
+			printf("%-8d ", dtv_frequency_prop * 1000), fprintf(fptr,"%-8d ", dtv_frequency_prop * 1000);
 
-		printf("%-8d ", currentsr * 1000);
+		printf("%-8d ", currentsr * 1000), fprintf(fptr,"%-8d ", currentsr * 1000);
 
 		//printf("SIG %2.1f %s ", signal, (lvl_scale == FE_SCALE_DECIBEL) ? "dBm" : "%");
 		//printf("SNR %2.1f dB ", snr);
