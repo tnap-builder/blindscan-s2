@@ -746,6 +746,14 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 
 		}
 
+		if (step >= endfreq) {
+			FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+			time_t mytime = time(NULL);
+			char * time_str = ctime(&mytime);
+			time_str[strlen(time_str)-1] = '\0';
+			fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
+			fclose(fptr);
+		}
 	}
 }
 
