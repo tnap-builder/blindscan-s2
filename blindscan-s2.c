@@ -743,15 +743,16 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 				else printf("ROLLOFF_AUTO\n"), fprintf(fptr,"ROLLOFF_AUTO\n"), fclose(fptr);
 				break;
 		fclose(fptr);
-		FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-		time_t mytime = time(NULL);
-		char * time_str = ctime(&mytime);
-		time_str[strlen(time_str)-1] = '\0';
-		fprintf(fptr,"Current Time at End-of-Scan : %s\n", time_str);
-		fclose(fptr);
+
 		}
 
 	}
 
+FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+time_t mytime = time(NULL);
+char * time_str = ctime(&mytime);
+time_str[strlen(time_str)-1] = '\0';
+fprintf(fptr,"Current Time at End-of-Scan : %s\n", time_str);
+fclose(fptr);
 }
 
