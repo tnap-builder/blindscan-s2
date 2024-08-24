@@ -429,7 +429,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				} else {
 					step = userstep;
 				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-				fprintf(fptr, "\n step = %d \n", step);
+				fprintf(fptr, "\n step-Frequency = %d end-frequency = %d \n", f, endfreq);
 				fclose(fptr);
 				}
 
