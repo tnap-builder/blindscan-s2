@@ -206,6 +206,10 @@ int main(int argc, char *argv[])
 	}
 
 	if (run_blindscan) {
+		time_t mytime = time(NULL);
+		char * time_str = ctime(&mytime);
+		time_str[strlen(time_str)-1] = '\0';
+		printf("Current Time : %s\n", time_str);
 		convert_freq (lof, &startfreq, &endfreq, &symrate, &step);
 		fefd = open_frontend (adapter, frontend, verbose);
 
