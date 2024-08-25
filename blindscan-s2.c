@@ -259,7 +259,6 @@ int main(int argc, char *argv[])
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	int fefd;
 	char fedev[128];
-	//fptr = fopen("/media/usb/test.txt", "w");
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
@@ -475,7 +474,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 		time_str[strlen(time_str)-1] = '\0';
 		fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
 		fclose(fptr);
-		open(fefd);
+		open_frontend (adapter, frontend, verbose);
 	}
 	}
 }
