@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	open(fefd);
+	//close(fefd);
 
 	return (0);
 }
