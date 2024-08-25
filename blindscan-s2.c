@@ -251,7 +251,7 @@ int main(int argc, char *argv[])
 		exit(1);
 	}
 
-	close(fefd);
+	//close(fefd);
 
 	return (0);
 }
@@ -468,7 +468,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 		time_str[strlen(time_str)-1] = '\0';
 		fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
 		fclose(fptr);
-		open(frontend);
+		//open(frontend);
 	}
 	}
 }
