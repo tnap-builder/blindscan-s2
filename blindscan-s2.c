@@ -261,7 +261,9 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	char fedev[128];
 	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
+	fprintf(fptr,"USB Device Location = ")
 	fprintf(fptr, fedev, sizeof(fedev), FEDEV, adapter, frontend);
+	fprintf(fptr,"\n")
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
 
