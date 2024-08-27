@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
 		time_t mytime = time(NULL);
 		char * time_str = ctime(&mytime);
 		time_str[strlen(time_str)-1] = '\0';
-		fprintf(fptr,"Current Time at Start-of-Scan : %s\n", time_str);
+		fprintf(fptr,"Time at Start-of-Scan : %s\n", time_str);
 		fclose(fptr);
 		convert_freq (lof, &startfreq, &endfreq, &symrate, &step);
 		fefd = open_frontend (adapter, frontend, verbose);
@@ -261,7 +261,7 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	char fedev[128];
 	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
-	fprintf(fptr,"\n", fedev, sizeof(fedev), FEDEV, adapter, frontend, "\n");
+	fprintf(fptr, fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
 
