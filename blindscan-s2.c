@@ -308,6 +308,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	int f;
 	int userstep = step;
 	fe_status_t status;
+	close(fefd);
 
 	int dtv_symbol_rate_prop = 0;
 	struct dtv_property p[] = {
