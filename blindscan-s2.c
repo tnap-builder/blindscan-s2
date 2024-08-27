@@ -261,7 +261,7 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	char fedev[128];
 	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
-	fprintf(fptr, "\n"(fedev, sizeof(fedev), FEDEV, adapter, frontend));
+	fprintf(fptr "\n"(fedev, sizeof(fedev), FEDEV, adapter, frontend));
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
 
