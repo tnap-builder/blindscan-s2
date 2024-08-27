@@ -259,7 +259,10 @@ int main(int argc, char *argv[])
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	int fefd;
 	char fedev[128];
+	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fprintf(fptr,fedev, sizeof(fedev), FEDEV, adapter, frontend);
+	fclose(fptr);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
         struct dvb_frontend_info info;
