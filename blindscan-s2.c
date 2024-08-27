@@ -210,7 +210,7 @@ int main(int argc, char *argv[])
 		time_t mytime = time(NULL);
 		char * time_str = ctime(&mytime);
 		time_str[strlen(time_str)-1] = '\0';
-		fprintf(fptr,"Usage = %s Current Time at Start-of-Scan : %s\n", usage, time_str);
+		fprintf(fptr,"Current Time at Start-of-Scan : %s\n", time_str);
 		fclose(fptr);
 		convert_freq (lof, &startfreq, &endfreq, &symrate, &step);
 		fefd = open_frontend (adapter, frontend, verbose);
@@ -260,8 +260,8 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	int fefd;
 	char fedev[128];
 	FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
-	fprintf(fptr,fedev, sizeof(fedev), FEDEV, adapter, frontend);
+	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend "\n");
+	fprintf(fptr "\n",fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
 
@@ -271,12 +271,6 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
                 return -1;
         }
         if (verbose) printf("frontend: (%s) \nfmin %d MHz \nfmax %d MHz \nmin_sr %d Ksps\nmax_sr %d Ksps\n\n", info.name,
-        info.type == 0 ? info.frequency_min / 1000: info.frequency_min / 1000000,
-        info.type == 0 ? info.frequency_max / 1000: info.frequency_max / 1000000,
-        info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /100000,
-        info.type == 0 ? info.symbol_rate_max / 1000: info.symbol_rate_max /1000000);
-
-        if (verbose) fprintf(fptr,"frontend: (%s) \nfmin %d MHz \nfmax %d MHz \nmin_sr %d Ksps\nmax_sr %d Ksps\n\n", info.name,
         info.type == 0 ? info.frequency_min / 1000: info.frequency_min / 1000000,
         info.type == 0 ? info.frequency_max / 1000: info.frequency_max / 1000000,
         info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /100000,
@@ -431,9 +425,9 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					step = (dtv_symbol_rate_prop );
 				} else {
 					step = userstep;
-				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 				//fprintf(fptr, "\n step-Frequency = %d end-frequency = %d  step = %d \n", f, endfreq, step);
-				fclose(fptr);
+				//fclose(fptr);
 				}
 
 				if (interactive) {
@@ -478,7 +472,6 @@ void blindscan (int startfreq, int endfreq, int symrate,
 		time_str[strlen(time_str)-1] = '\0';
 		fprintf(fptr,"\nCurrent Time at End-of-Scan : %s\n", time_str);
 		fclose(fptr);
-		//tune(fefd, 1000, 100, polarity, fec, delsys, tone);
 	}
 	}
 }
