@@ -264,6 +264,7 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	fprintf(fptr,fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fclose(fptr);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
+	fefc = close(fedev, O_RDWR | O_NONBLOCK);
 
         struct dvb_frontend_info info;
         if ((ioctl(fefd, FE_GET_INFO, &info)) == -1) {
