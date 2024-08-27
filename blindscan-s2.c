@@ -309,6 +309,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	int userstep = step;
 	fe_status_t status;
 	close(fefd);
+	tune(fefd, 3600000, symrate, polarity, fec, delsys, tone);
 
 	int dtv_symbol_rate_prop = 0;
 	struct dtv_property p[] = {
