@@ -259,7 +259,7 @@ int main(int argc, char *argv[])
 int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
 	int fefd;
 	char fedev[128];
-	snprintf(fedev, sizeof(fedev), FEDEV, adapter, frontend);
+	fprintf(fptr,fedev, sizeof(fedev), FEDEV, adapter, frontend);
 	fefd = open(fedev, O_RDWR | O_NONBLOCK);
 
         struct dvb_frontend_info info;
@@ -308,8 +308,6 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	int f;
 	int userstep = step;
 	fe_status_t status;
-	close(fefd);
-	tune(fefd, 3600000, symrate, polarity, fec, delsys, tone);
 
 	int dtv_symbol_rate_prop = 0;
 	struct dtv_property p[] = {
