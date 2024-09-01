@@ -51,7 +51,7 @@
 #define STARTFREQ 950
 #define ENDFREQ 1450
 #define LBAND_MAX 2150
-#define SYMRATE 100
+#define SYMRATE 1000
 #define STEP 2
 #define LOF 0
 #define COMMITTED 0
