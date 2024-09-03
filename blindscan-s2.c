@@ -272,7 +272,7 @@ int open_frontend (unsigned int adapter, unsigned int frontend, int verbose) {
                 if (verbose) perror("FE_GET_INFO failed\n");
                 return -1;
         }
-        fprintf(fptr,"\n frontend: (%s) \nfmin %d MHz \nfmax %d MHz \nmin_sr %d Ksps\nmax_sr %d Ksps\n\n", info.name,
+        fprintf(fptr,"\n frontend: (%s) fmin %d MHz  fmax %d MHz  min_sr %d Ksps  max_sr %d Ksps \n", info.name,
         info.type == 0 ? info.frequency_min / 1000: info.frequency_min / 1000000,
         info.type == 0 ? info.frequency_max / 1000: info.frequency_max / 1000000,
         info.type == 0 ? info.symbol_rate_min / 1000: info.symbol_rate_min /100000,
@@ -395,9 +395,11 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	else {
 		for (f = startfreq; f <= endfreq; f += step) {
 			for (r = retune; r > 0; r -= 1) {
-				if (verbose)
-					printf("Tuning LBAND: %d \n", f / FREQ_MULT);
+				printf("Tuning LBAND: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
+				//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				//fprintf(fptr, "\n step-Frequency = %d end-frequency = %d  step = %d \n", f, endfreq, step);
+				//fclose(fptr);
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
 				usleep(10000);
@@ -414,6 +416,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 				getinfo(fefd, lof, verbose);
 				usleep(10000);
 				getinfo(fefd, lof, verbose);
+				printf("Done--Tuning LBAND: %d \n", f / FREQ_MULT);
 
 				if (ioctl(fefd, FE_READ_STATUS, &status) == -1) {
 					perror("FE_READ_STATUS failed");
