@@ -430,13 +430,15 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					if(dtv_symbol_rate_prop > userstep) {
 						step = dtv_symbol_rate_prop;
 					}
+					else
+						step = userstep;
 					
-				} else {
-					step = userstep;
+				}  
+					
 				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
 				fprintf(fptr, "\n dtv_symbol_rate_prop = %d  step = %d", dtv_symbol_rate_prop, step);
 				fclose(fptr);
-				}
+
 
 				if (interactive) {
 					printf("Interactive: press i [enter] for info, r to retune, q to quit\n");
