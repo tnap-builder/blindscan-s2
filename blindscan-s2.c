@@ -427,7 +427,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					fclose(fptr);
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
-					if(dtv_symbol_rate_prop > 1000) {
+					if(dtv_symbol_rate_prop > userstep) {
 						step = dtv_symbol_rate_prop;
 					}
 					
