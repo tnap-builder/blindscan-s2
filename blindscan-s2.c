@@ -394,7 +394,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	}
 	else {
 		for (f = startfreq; f <= endfreq; f += step) {
-			retune = 3
+			//retune = 3
 			for (r = retune; r > 0; r -= 1) {
 				printf("Tuning LBAND-2: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
