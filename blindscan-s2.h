@@ -42,7 +42,7 @@
 #define MONITOR 0
 #define MONITOR_RETUNE 0
 #define DELSYS 5
-#define RETUNE 0
+#define RETUNE 1
 #define ADAPTER 0
 #define FRONTEND 0
 #define RUN_BLINDSCAN 0
