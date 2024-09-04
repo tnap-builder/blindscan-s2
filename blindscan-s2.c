@@ -427,10 +427,10 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					fclose(fptr);
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
-					if(dtv_symbol_rate_prop < 100) {
-						dtv_symbol_rate_prop = 100;
+					if(dtv_symbol_rate_prop > 1000) {
+						step = dtv_symbol_rate_prop;
 					}
-					step = (dtv_symbol_rate_prop );
+					
 				} else {
 					step = userstep;
 				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
