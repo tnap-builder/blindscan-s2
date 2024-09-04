@@ -394,6 +394,7 @@ void blindscan (int startfreq, int endfreq, int symrate,
 	}
 	else {
 		for (f = startfreq; f <= endfreq; f += step) {
+			retune = 3
 			for (r = retune; r > 0; r -= 1) {
 				printf("Tuning LBAND-2: %d \n", f / FREQ_MULT);
 				tune(fefd, f, symrate, polarity, fec, delsys, tone);
@@ -422,9 +423,6 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					perror("FE_READ_STATUS failed");
 				}
 				if(status & ((FE_HAS_VITERBI || FE_HAS_SYNC))) {
-					FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-					fprintf(fptr, "\n Line#425, status & ((FE_HAS_VITERBI || FE_HAS_SYNC)))");
-					fclose(fptr);
 					ioctl(fefd, FE_GET_PROPERTY, &qp);
 					dtv_symbol_rate_prop = qp.props[0].u.data / FREQ_MULT;
 					if(dtv_symbol_rate_prop > userstep) {
