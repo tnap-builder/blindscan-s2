@@ -651,9 +651,6 @@ void getinfo(int fefd, int lof, unsigned int verbose) {
 	struct dvb_frontend_parameters qp;
 	ioctl(fefd, FE_GET_FRONTEND, &qp);
 	dtv_symbol_rate_prop = qp.u.qpsk.symbol_rate;
-	//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-	//fprintf(fptr,"\n lastfreq-%d currentfreq-%d lastpol-%d currentpol-%d lastsr-%d  currentsr-%d lastsys-%d currentsys-%d lastfec-%d currentfec-%d \n", lastfreq, currentfreq, lastpol, currentpol, lastsr, currentsr, lastsys, currentsys, lastfec, currentfec);
-	//fclose(fptr);
 	if (verbose || (snr > 0 && (currentpol != lastpol || currentfreq != lastfreq
 		|| currentsr != lastsr || currentsys != lastsys || currentfec != lastfec
 		|| currentmod != lastmod || currentinv != lastinv || currentrol != lastrol
