@@ -430,9 +430,9 @@ void blindscan (int startfreq, int endfreq, int symrate,
 					step = (dtv_symbol_rate_prop );
 				} else {
 					step = userstep;
-				//FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
-				//fprintf(fptr, "\n step-Frequency = %d end-frequency = %d  step = %d \n", f, endfreq, step);
-				//fclose(fptr);
+				FILE *fptr = fopen("/tmp/TBS5925-scan-log.txt", "a");
+				fprintf(fptr, "\n dtv_symbol_rate_prop = %d  step = %d", dtv_symbol_rate_prop, step);
+				fclose(fptr);
 				}
 
 				if (interactive) {
